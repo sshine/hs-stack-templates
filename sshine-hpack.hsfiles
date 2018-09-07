@@ -1,0 +1,74 @@
+{-# START_FILE package.yaml #-}
+name: {{name}}
+version: 0.1.0
+
+homepage: https://github.com/{{github-username}}
+author: {{author-name}}
+maintainer: {{author-email}}
+copyright: {{copyright}}
+extra-source-files:
+  - README.md
+
+dependencies:
+  - base
+  - safe
+  - containers
+  - text
+  - mtl
+
+library:
+#  exposed-modules:
+  source-dirs: src
+
+executables:
+  {{name}}:
+    source-dirs: src
+    main: Main.hs
+
+tests:
+  test:
+    main: test.hs
+    source-dirs: test
+    dependencies:
+      - {{name}}
+      - tasty
+      - tasty-discover
+      - tasty-quickcheck
+      - QuickCheck
+
+benchmarks:
+  bench:
+    main: bench.hs
+    source-dirs: bench
+    dependencies:
+      - {{name}}
+      - criterion
+    ghc-options: -O2
+
+{-# START_FILE Setup.hs #-}
+import Distribution.Simple
+
+main :: IO ()
+main = defaultMain
+
+{-# START_FILE src/Main.hs #-}
+module Main where
+
+main :: IO ()
+main = return ()
+
+{-# START_FILE test/test.hs #-}
+{-# OPTIONS_GHC -F -pgmF tasty-discover #-}
+
+{-# START_FILE bench/bench.hs #-}
+module Main where
+
+import Criterion
+import Criterion.Main
+
+main :: IO ()
+main = defaultMain
+  [ bgroup "const" [ bench "const" $ whnf const () ] ]
+
+{-# START_FILE README.md #-}
+# {{name}}
