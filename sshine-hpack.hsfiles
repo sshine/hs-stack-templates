@@ -22,7 +22,7 @@ library:
 
 executables:
   {{name}}:
-    source-dirs: src
+    source-dirs: app
     main: Main.hs
 
 tests:
@@ -53,7 +53,7 @@ import Distribution.Simple
 main :: IO ()
 main = defaultMain
 
-{-# START_FILE src/Main.hs #-}
+{-# START_FILE app/Main.hs #-}
 module Main where
 
 main :: IO ()
