@@ -33,8 +33,10 @@ tests:
       - {{name}}
       - tasty
       - tasty-discover
+      - tasty-hspec
       - tasty-quickcheck
       - QuickCheck
+      - hspec
 
 benchmarks:
   bench:
@@ -59,6 +61,27 @@ main = return ()
 
 {-# START_FILE test/test.hs #-}
 {-# OPTIONS_GHC -F -pgmF tasty-discover #-}
+
+{-# START_FILE test/SomeTest.hs #-}
+module SomeTest where
+
+import Safe
+
+import Test.Tasty.Hspec
+import Test.Tasty.QuickCheck
+
+spec_SomeSpec :: Spec
+spec_SomeSpec = do
+  describe "Safe.headMay" $ do
+    it "returns the first element when it exists" $ do
+      headMay "ABC"   `shouldBe` Just 'A'
+      headMay ['A'..] `shouldBe` Just 'A'
+
+    it "returns Nothing when the list is empty" $
+      headMay ([] :: [Int]) `shouldBe` Nothing
+
+prop_SomeProp :: Char -> String -> Property
+prop_SomeProp c cs = property $ headMay (c:cs) == Just c
 
 {-# START_FILE bench/bench.hs #-}
 module Main where
