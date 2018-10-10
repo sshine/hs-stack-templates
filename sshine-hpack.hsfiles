@@ -17,7 +17,7 @@ dependencies:
   - mtl
 
 library:
-#  exposed-modules:
+  exposed-modules: Lib
   source-dirs: src
 
 executables:
@@ -58,6 +58,12 @@ module Main where
 
 main :: IO ()
 main = return ()
+
+{-# START_FILE src/Lib.hs #-}
+module Lib where
+
+f :: Int -> Int
+f = undefined
 
 {-# START_FILE test/test.hs #-}
 {-# OPTIONS_GHC -F -pgmF tasty-discover #-}
