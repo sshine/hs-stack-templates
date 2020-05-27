@@ -11,13 +11,12 @@ extra-source-files:
 
 dependencies:
   - base
-  - safe
   - containers
   - text
   - mtl
 
 library:
-  exposed-modules: Lib
+  exposed-modules:
   source-dirs: src
 
 executables:
@@ -59,19 +58,11 @@ module Main where
 main :: IO ()
 main = return ()
 
-{-# START_FILE src/Lib.hs #-}
-module Lib where
-
-f :: Int -> Int
-f = undefined
-
 {-# START_FILE test/test.hs #-}
 {-# OPTIONS_GHC -F -pgmF tasty-discover #-}
 
 {-# START_FILE test/SomeTest.hs #-}
 module SomeTest where
-
-import Safe
 
 import Test.Tasty.Hspec
 import Test.Tasty.QuickCheck
